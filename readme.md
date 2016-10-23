@@ -13,8 +13,9 @@ We use EM algorithm. That is, since
 
     sum_{n=1}^N log ( p(t_n|W,beta)) =  sum_{n=1}^N log (1/K sum_{k=1}^K p(t_n|x_k,W,bea) ) 
                                                                                  p(x_k|t_n, W, beta)
-                                     >= sum_{n=1}^N log ( 1/K sum_{k=1}^K ----------------------------------)
+                                     = sum_{n=1}^N log ( 1/K sum_{k=1}^K ----------------------------------)
                                                                              sum_{k=1}^Kp(x_k|t_n, W, beta)
+                                     >= sum_{n=1}^N sum_{k=1}^K log (p(x_k|t_n, W, beta)) + C
 Hence we only need to optimize the right hand side.
 
 
@@ -32,4 +33,4 @@ Hence we only need to optimize the right hand side.
 
 ## data included:
 
-1. The oil data. It has three clusters.
+1. 3Class.m: The oil data. It has three clusters.
