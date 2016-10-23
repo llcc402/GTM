@@ -48,8 +48,6 @@ for iter = 1:maxIter
     r_mat = pdist2((W * phi)', data');
     r_mat = - (r_mat .^2)  * beta  / 2;
     
-    likelihood_vec(iter) = sum(sum(r_mat));
-    
     r_mat = r_mat - repmat(max(r_mat), k, 1);
     r_mat = exp(r_mat);
     
@@ -71,18 +69,20 @@ for iter = 1:maxIter
     beta = 1 / beta;
     
     %% post process
+    
+    % compute loglikelihood
+    dist = exp(-dist * beta / 2) * (beta / 2 / pi)^n;
+    loglikelihood = sum(log(sum(dist) / k));
+    likelihood_vec(iter) = loglikelihood;
+    
     fprintf(['iter ', num2str(iter), ' done\n'])
     if iter > 1
         fprintf(['epsilon = ', num2str(likelihood_vec(iter) - likelihood_vec(iter - 1)), '\n'])
     end
     toc
 end
+plot(likelihood_vec)
 
-if maxIter > 100
-    plot(likelihood_vec((end-100):end))
-else
-    plot(likelihood_vec)
-end
 
 end
 
