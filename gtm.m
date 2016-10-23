@@ -35,6 +35,7 @@ W = B / A;
 % init beta
 dist = pdist2((W * phi)', data');
 beta = sum(sum(dist.^2)) / m / n;
+beta = 1 / beta;
 likelihood_vec = zeros(1, maxIter);
 
 %% EM
